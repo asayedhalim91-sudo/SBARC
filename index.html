@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="SBARC weekly earned value report: progress, work packages, buildings and villas, activities and presentation.">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font-size:14px}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>SBARC Project Progress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: full-width site header band (title-block bar + filter strip), content column max 1440px, card grids underneath. */
+:root{
+  --ink:#1D5F7E; --ochre:#C68A2B; --concrete:#F2F3F1; --slab:#FFFFFF; --rule:#D8DDDD; --char:#16212A;
+  --color-bg:var(--concrete); --color-panel:var(--slab); --color-fg:var(--char); --color-fg-muted:#58646D; --color-border-line:var(--rule);
+  --color-ok:#2D7A4C; --color-warn:#9C6410; --color-bad:#B13F2B;
+  --cds-chart-muted:#BAC3C6; --cds-chart-status-critical:#C24A33; --cds-chart-grid:#E5E9E9; --cds-chart-axis:#A7B1B5; --cds-chart-reference:#86929A;
+  --cds-surface-popover:#FFFFFF; --cds-border:#D8DDDD; --cds-shadow-popover:0 8px 28px rgba(16,32,44,.14); --cds-text-secondary:#58646D;
+  --series-1:var(--ink); --series-2:var(--ochre); --series-3:#5E8C6A; --series-4:#8A6BB0; --series-5:#C25E7A; --series-6:#3E9CA6; --series-7:#7D7F3A; --series-8:#6B7A88;
+  --head-bg:#FFFFFF;
+  --font-anthropic-sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-anthropic-serif:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --cds-font-size-caption:12.5px; --cds-font-size-body:14.5px; --cds-font-size-heading:16px; --cds-font-size-title:24px; --cds-font-weight-medium:600;
+  --cds-gap-xs:4px; --cds-gap-sm:8px; --cds-gap-md:14px; --cds-gap-lg:22px; --cds-gap-xl:32px;
+  --cds-pad-xs:4px; --cds-pad-sm:8px; --cds-pad-md:14px; --cds-pad-lg:20px; --cds-pad-xl:32px;
+  --cds-radius:8px; --cds-dur-slow:420ms; --cds-ease-out:cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ink:#62B2D6; --ochre:#E2B060; --concrete:#0E151A; --slab:#162027; --rule:#2A3740; --char:#E5EBEE;
+  --color-fg-muted:#94A2AA; --color-ok:#62C48A; --color-warn:#E3AA4E; --color-bad:#F07D66;
+  --cds-chart-muted:#485761; --cds-chart-status-critical:#E86B53; --cds-chart-grid:#21303A; --cds-chart-axis:#40505A; --cds-chart-reference:#6E7F88;
+  --cds-surface-popover:#1B2730; --cds-border:#2E3C46; --cds-shadow-popover:0 8px 28px rgba(0,0,0,.5); --cds-text-secondary:#94A2AA;
+  --series-3:#7FB58C; --series-4:#A890CF; --series-5:#E07E99; --series-6:#5FC0C9; --series-7:#B3B55E; --series-8:#8D9CAA;
+  --head-bg:#121B21; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#62B2D6; --ochre:#E2B060; --concrete:#0E151A; --slab:#162027; --rule:#2A3740; --char:#E5EBEE;
+  --color-fg-muted:#94A2AA; --color-ok:#62C48A; --color-warn:#E3AA4E; --color-bad:#F07D66;
+  --cds-chart-muted:#485761; --cds-chart-status-critical:#E86B53; --cds-chart-grid:#21303A; --cds-chart-axis:#40505A; --cds-chart-reference:#6E7F88;
+  --cds-surface-popover:#1B2730; --cds-border:#2E3C46; --cds-shadow-popover:0 8px 28px rgba(0,0,0,.5); --cds-text-secondary:#94A2AA;
+  --series-3:#7FB58C; --series-4:#A890CF; --series-5:#E07E99; --series-6:#5FC0C9; --series-7:#B3B55E; --series-8:#8D9CAA;
+  --head-bg:#121B21; color-scheme:dark}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--color-bg);color:var(--color-fg);font-family:var(--font-anthropic-sans);font-size:var(--cds-font-size-body);line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--head-bg)}
+.wrap{max-width:1440px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button:focus-visible,a:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+/* skeleton */
+.dash-skeleton{color:transparent !important;background:linear-gradient(90deg,color-mix(in srgb,var(--rule) 55%,transparent) 0%,color-mix(in srgb,var(--rule) 90%,transparent) 50%,color-mix(in srgb,var(--rule) 55%,transparent) 100%) 0 0/200% 100%;border-radius:6px;animation:sk 1.4s linear infinite;min-height:1em}
+span.dash-skeleton,b.dash-skeleton{display:inline-block;min-width:3.5em}
+@keyframes sk{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.dash-skeleton{animation:none}}
+/* site header */
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--head-bg);border-bottom:1px solid var(--rule)}
+.site-bar{display:flex;align-items:center;gap:var(--cds-gap-md);padding-block:10px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:var(--color-fg);text-decoration:none;background:none;border:0;font:inherit;cursor:pointer;padding:0;margin-right:auto}
+.brand svg{flex:none}
+.brand .bt{display:flex;flex-direction:column;line-height:1.1;text-align:left}
+.brand .bt b{font-family:var(--font-anthropic-serif);font-weight:700;font-stretch:85%;font-size:17px;letter-spacing:.01em}
+.brand .bt span{font-size:11.5px;color:var(--color-fg-muted);letter-spacing:.06em;text-transform:uppercase}
+.theme-btn{appearance:none;border:1px solid var(--rule);background:var(--slab);color:var(--color-fg);border-radius:999px;font:inherit;font-size:var(--cds-font-size-caption);padding:5px 12px;cursor:pointer}
+.site-nav{order:3;flex-basis:100%;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-top:4px}
+.site-nav::-webkit-scrollbar{display:none}
+.site-nav .pd-tab{font-weight:500;padding:9px 12px}
+.site-filters{display:flex;flex-wrap:wrap;align-items:center;gap:var(--cds-gap-sm);padding-block:8px;border-top:1px solid color-mix(in srgb,var(--rule) 70%,transparent)}
+.site-filters .lab{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-fg-muted);margin-right:2px}
+.site-filters .pd-chips{padding:0;margin-left:auto}
+.pd[data-tab=about] .site-filters,.pd[data-tab=about] #kpis,.pd[data-tab=present] #kpis{display:none !important}
+main.wrap{padding-block:var(--cds-gap-lg) var(--cds-gap-xl)}
+/* hero (home only) */
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:var(--cds-gap-xl);align-items:end;padding-block:var(--cds-gap-lg) var(--cds-gap-lg)}
+.pd:not([data-tab=home]) .hero{display:none}
+.hero .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-fg-muted);display:flex;gap:10px;align-items:center}
+.hero .eyebrow::before{content:"";width:28px;height:3px;background:var(--ochre)}
+.pd .hero h1{font-family:var(--font-anthropic-serif);font-weight:700;font-stretch:78%;font-size:clamp(2.2rem,5.4vw,4.25rem);line-height:.98;letter-spacing:-.01em;margin:12px 0 14px;text-wrap:balance}
+.pd .hero h1 em{font-style:normal;color:var(--ink)}
+.hero .pd-take{font-size:clamp(15px,1.4vw,17px);max-width:62ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:var(--cds-gap-sm);margin-top:var(--cds-gap-lg)}
+.cta{appearance:none;font:inherit;font-weight:600;font-size:14px;border-radius:999px;padding:10px 18px;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:var(--slab)}
+.cta.ghost{background:transparent;color:var(--color-fg);border-color:var(--rule)}
+.cta:hover{filter:brightness(1.07)}
+.tblock{border:1.5px solid var(--color-fg);border-radius:4px;display:grid;grid-template-columns:1fr 1fr;font-size:12px;background:var(--slab)}
+.tblock>div{padding:9px 12px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:2px;min-width:0}
+.tblock>div:nth-child(2n){border-right:0}
+.tblock>div.full{grid-column:1/-1;border-right:0}
+.tblock>div:nth-last-child(-n+1){border-bottom:0}
+.tblock .k{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-fg-muted)}
+.tblock .v{font-family:var(--font-mono);font-size:13px;color:var(--color-fg);overflow-wrap:anywhere}
+.tblock .v.big{font-family:var(--font-anthropic-serif);font-weight:700;font-stretch:85%;font-size:22px}
+@media (max-width:820px){.hero{grid-template-columns:1fr;gap:var(--cds-gap-lg)}}
+/* explore cards */
+.explore{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:var(--cds-gap-md)}
+.xcard{appearance:none;text-align:left;font:inherit;color:inherit;background:var(--slab);border:1px solid var(--rule);border-radius:var(--cds-radius);padding:var(--cds-pad-lg);cursor:pointer;display:flex;flex-direction:column;gap:6px;transition:border-color .2s,transform .2s}
+.xcard:hover{border-color:var(--ink);transform:translateY(-2px)}
+.xcard .n{font-family:var(--font-mono);font-size:11.5px;color:var(--ochre);letter-spacing:.06em}
+.xcard b{font-family:var(--font-anthropic-serif);font-weight:700;font-stretch:88%;font-size:19px}
+.xcard span{font-size:13px;color:var(--color-fg-muted);line-height:1.45}
+.xcard .go{margin-top:auto;padding-top:6px;font-size:12.5px;color:var(--ink);font-weight:600}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:var(--cds-gap-sm);flex-wrap:wrap;margin:var(--cds-gap-lg) 0 var(--cds-gap-sm)}
+.sec-h h2{margin:0;font-family:var(--font-anthropic-serif);font-weight:700;font-stretch:85%;font-size:22px}
+.page-h{display:flex;flex-direction:column;gap:4px;margin-bottom:var(--cds-gap-md)}
+.page-h h2{margin:0;font-family:var(--font-anthropic-serif);font-weight:700;font-stretch:82%;font-size:clamp(24px,2.6vw,32px);line-height:1.05;text-wrap:balance}
+.page-h p{margin:0;color:var(--color-fg-muted);max-width:75ch}
+/* about */
+.about{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:var(--cds-gap-md)}
+.about .pd-card p,.about .pd-card li{font-size:14px;line-height:1.6;color:var(--color-fg);max-width:68ch}
+.about .pd-card ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:6px}
+.about dl{margin:0;display:grid;grid-template-columns:minmax(8rem,auto) 1fr;gap:8px 16px;font-size:13.5px}
+.about dt{font-weight:600}
+.about dd{margin:0;color:var(--color-fg-muted)}
+.site-foot{border-top:1px solid var(--rule);background:var(--head-bg)}
+.site-foot .wrap{padding-block:18px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:12.5px;color:var(--color-fg-muted)}
+
+.pd{font-family:var(--font-anthropic-sans);color:var(--color-fg);position:relative;font-variant-numeric:tabular-nums;--pd-accent:var(--color-fg);--pd-accent2:var(--color-fg-muted);--pd-muted:var(--cds-chart-muted);--pd-bad:var(--cds-chart-status-critical);--pd-trackbg:color-mix(in srgb,var(--color-border-line) 70%,transparent)}
+.pd [hidden]{display:none !important}
+.pd-head{display:flex;flex-direction:column;gap:var(--cds-gap-sm);padding-block:var(--cds-pad-sm) var(--cds-pad-md)}
+.pd-eyebrow{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:var(--cds-gap-sm)}
+.pd-eyebrow::before{content:"";width:1.5rem;height:2px;background:var(--pd-accent);border-radius:2px}
+.pd h1{font-family:var(--font-anthropic-serif);font-weight:400;font-size:calc(var(--cds-font-size-title)*1.4);margin:0;line-height:1.1;letter-spacing:-.01em}
+.pd-take{margin:0;font-size:var(--cds-font-size-body);color:var(--color-fg-muted);max-width:76ch;line-height:1.55}
+.pd .pd-take b{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.pd-take .scope{color:var(--color-fg)}
+.pd-sticky{position:sticky;top:0;z-index:6;background:var(--color-bg);margin-bottom:var(--cds-gap-lg)}
+.pd-nav{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--cds-gap-sm) var(--cds-gap-md);border-bottom:1px solid var(--color-border-line)}
+.pd-tabs{display:flex;gap:var(--cds-gap-xs);overflow-x:auto;max-width:100%}
+.pd-tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:var(--cds-pad-sm);color:var(--color-fg-muted);font:inherit;font-size:var(--cds-font-size-body);cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.pd-tab:hover{color:var(--color-fg)}
+.pd-tab[aria-selected=true]{color:var(--color-fg);border-bottom-color:var(--pd-accent)}
+.pd-ctrls{display:flex;flex-wrap:wrap;gap:var(--cds-gap-sm);margin-bottom:var(--cds-pad-sm)}
+.pd-seg{display:inline-flex;flex-wrap:wrap;background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:999px;padding:3px}
+.pd-seg button{appearance:none;border:0;background:none;font:inherit;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);padding:5px 12px;border-radius:999px;cursor:pointer}
+.pd-seg button:hover{color:var(--color-fg)}
+.pd-seg button[aria-pressed=true]{background:var(--color-bg);color:var(--color-fg);box-shadow:0 0 0 1px var(--color-border-line)}
+.pd-chips{display:flex;flex-wrap:wrap;gap:var(--cds-gap-xs);align-items:center;padding:var(--cds-pad-xs) 0;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.pd-chip{appearance:none;font:inherit;font-size:var(--cds-font-size-caption);border:1px solid var(--pd-accent);background:color-mix(in srgb,var(--pd-accent) 10%,var(--color-bg));color:var(--color-fg);border-radius:999px;padding:3px 10px;cursor:pointer}
+.pd-chip::after{content:"  ×";color:var(--color-fg-muted)}
+.pd-chip.clear{border-color:var(--color-border-line);background:none}
+.pd-chip.clear::after{content:""}
+.pd-page[hidden]{display:none}
+.pd-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13.5rem),1fr));gap:var(--cds-gap-md);margin-bottom:var(--cds-gap-md)}
+.pd-kpi{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg);display:flex;flex-direction:column;gap:var(--cds-gap-sm);min-width:0}
+.pd-kpi-label{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.06em}
+.pd-kpi-value{font-family:var(--font-anthropic-serif);font-weight:400;font-size:calc(var(--cds-font-size-title)*1.3);line-height:1.05;letter-spacing:-.01em}
+.pd-kpi-sub{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);line-height:1.5}
+.pd .pd-kpi-sub b,.pd .pd-legend b{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.pd .is-bad{color:var(--color-bad)}
+.pd .is-ok{color:var(--color-ok)}
+.pd .is-warn{color:var(--color-warn)}
+.pd-meter{position:relative;height:8px;border-radius:999px;background:var(--pd-trackbg);margin-top:auto}
+.pd-meter .fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:var(--pd-accent);width:0}
+.pd-meter .tick{position:absolute;top:-4px;bottom:-4px;width:2px;border-radius:2px;background:var(--color-fg);opacity:.75;left:0}
+.pd-stack{display:flex;height:8px;border-radius:999px;overflow:hidden;background:var(--pd-trackbg);margin-top:auto;gap:2px}
+.pd-stack span{display:block;height:100%}
+.pd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr));gap:var(--cds-gap-md);margin-bottom:var(--cds-gap-md)}
+.pd-card{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg);min-width:0;container-type:inline-size;display:flex;flex-direction:column;gap:var(--cds-gap-sm)}
+.pd-card.wide{grid-column:1/-1}
+.pd-card h2{margin:0;font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium)}
+.pd-card h3{margin:0;font-size:var(--cds-font-size-caption);font-weight:var(--cds-font-weight-medium);color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.06em}
+.pd-note{margin:0;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);line-height:1.5}
+.pd-legend{display:flex;flex-wrap:wrap;gap:var(--cds-gap-xs) var(--cds-gap-md);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);align-items:center}
+.pd-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pd-legend i.ring{border-radius:50%;border:2px solid var(--color-fg-muted);background:var(--color-panel);width:8px;height:8px}
+.pd-legend i.dot{border-radius:50%}
+.pd-legend i.tk{width:2px;height:12px;border-radius:1px;background:var(--color-fg)}
+.pd-legend .ramp{display:inline-block;width:9rem;height:8px;border-radius:999px;vertical-align:middle;margin:0 6px;border:1px solid var(--color-border-line);background:linear-gradient(90deg,color-mix(in srgb,var(--pd-bad) 72%,var(--color-panel)),color-mix(in srgb,var(--pd-bad) 12%,var(--color-panel)) 66%,color-mix(in srgb,var(--pd-accent) 40%,var(--color-panel)))}
+.pd-rows{display:flex;flex-direction:column;min-height:12rem;margin-top:var(--cds-gap-xs)}
+.pd-row{display:grid;grid-template-columns:minmax(6rem,36%) minmax(4rem,1fr) auto;gap:var(--cds-gap-sm);align-items:center;padding:5px 4px;font-size:var(--cds-font-size-caption);border-radius:4px}
+.pd-row.click{cursor:pointer}
+.pd-row:hover{background:color-mix(in srgb,var(--color-border-line) 35%,transparent)}
+.pd-row.is-sel{background:color-mix(in srgb,var(--pd-accent) 12%,transparent);box-shadow:inset 2px 0 0 var(--pd-accent)}
+.pd-row.is-dim{opacity:.45}
+.pd-row .lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--color-fg)}
+.pd-row .val{text-align:right;color:var(--color-fg-muted);white-space:nowrap;min-width:4.5rem}
+.pd-row .val b{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.pd-track{position:relative;height:12px;background:var(--pd-trackbg);border-radius:999px}
+.pd-track.bare{background:none}
+.pd-track .bar{position:absolute;left:0;top:0;height:100%;border-radius:999px}
+.pd-track .bar.half1{height:5px;top:0}
+.pd-track .bar.half2{height:5px;top:7px}
+.pd-track .tk{position:absolute;top:-3px;bottom:-3px;width:2px;border-radius:1px;background:var(--color-fg);opacity:.8}
+.pd-track .mid{position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:var(--cds-chart-axis)}
+.pd-track .seg{position:absolute;top:5px;height:2px;border-radius:1px}
+.pd-track .dot{position:absolute;top:1px;width:10px;height:10px;margin-left:-5px;border-radius:50%}
+.pd-track .dot.plan{border:2px solid var(--color-fg-muted);background:var(--color-panel);width:6px;height:6px;margin-left:-5px}
+.pd-axis{display:grid;grid-template-columns:minmax(6rem,36%) minmax(4rem,1fr) auto;gap:var(--cds-gap-sm);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);padding:0 4px 4px;border-bottom:1px solid var(--cds-chart-grid)}
+.pd-axis .ticks{position:relative;height:1.2em}
+.pd-axis .ticks span{position:absolute;transform:translateX(-50%)}
+.pd-axis .ticks span:first-child{transform:none}
+.pd-axis .ticks span:last-child{transform:translateX(-100%)}
+.pd-axis .val{min-width:4.5rem;text-align:right}
+.pd-more{align-self:flex-start;appearance:none;background:none;border:1px solid var(--color-border-line);border-radius:999px;color:var(--color-fg);font:inherit;font-size:var(--cds-font-size-caption);padding:4px 12px;cursor:pointer;margin-top:var(--cds-gap-xs)}
+.pd-budget{display:flex;height:2.25rem;border-radius:var(--cds-radius);overflow:hidden;gap:2px;margin-top:var(--cds-gap-xs)}
+.pd-budget div{height:100%;display:flex;align-items:center;padding:0 10px;font-size:var(--cds-font-size-caption);white-space:nowrap;overflow:hidden;min-width:0;color:var(--color-fg)}
+.pd-budget .b-earned{background:var(--pd-accent);color:var(--color-bg)}
+.pd-budget .b-ahead{background:color-mix(in srgb,var(--pd-accent) 55%,var(--color-panel))}
+.pd-budget .b-behind{background:var(--pd-bad);color:var(--color-bg)}
+.pd-budget .b-future{background:var(--pd-trackbg)}
+.pd-bleg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:var(--cds-gap-sm);margin-top:var(--cds-gap-xs)}
+.pd-bleg>div{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);display:flex;flex-direction:column;gap:2px}
+.pd-bleg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pd-bleg .v{font-family:var(--font-anthropic-serif);font-size:var(--cds-font-size-heading);color:var(--color-fg)}
+.pd-chart{position:relative;min-height:18rem}
+.pd-svg{display:block}
+.pd-svg text{font-family:var(--font-anthropic-sans);font-size:11px;fill:var(--color-fg-muted)}
+.pd-svg .tm-l{fill:var(--color-fg);font-size:12px}
+.pd-svg .tm-v{fill:var(--color-fg-muted);font-size:11px}
+.pd-svg .grid{stroke:var(--cds-chart-grid);stroke-width:1}
+.pd-svg .ref{stroke:var(--cds-chart-reference);stroke-width:1.5;stroke-dasharray:4 4}
+.pd-svg .zone{font-size:11px;fill:var(--color-fg-muted);opacity:.85}
+.pd-svg .tm-cell:hover rect,.pd-svg circle:hover{filter:brightness(1.06)}
+.pd-areas{display:flex;flex-direction:column;gap:var(--cds-gap-xs);min-height:12rem}
+.pd-area{display:grid;grid-template-columns:minmax(5.5rem,auto) 1fr;gap:var(--cds-gap-xs) var(--cds-gap-md);align-items:center;padding:var(--cds-pad-sm);border-radius:var(--cds-radius);cursor:pointer;border:1px solid transparent}
+.pd-area:hover{border-color:var(--color-border-line)}
+.pd-area[aria-pressed=true]{border-color:var(--pd-accent)}
+.pd-area .nm{font-size:var(--cds-font-size-body);font-weight:var(--cds-font-weight-medium)}
+.pd-area .big{font-family:var(--font-anthropic-serif);font-size:var(--cds-font-size-title);font-weight:400;line-height:1;text-align:right}
+.pd-area .meta{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px var(--cds-gap-md);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.pd .pd-area .meta b{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.pd-area .pd-meter{grid-column:1/-1;margin-top:0}
+.pd-tools{display:flex;flex-wrap:wrap;gap:var(--cds-gap-sm);align-items:center;justify-content:space-between}
+.pd-search{font:inherit;font-size:var(--cds-font-size-caption);color:var(--color-fg);background:var(--color-bg);border:1px solid var(--color-border-line);border-radius:999px;padding:6px 12px;min-width:min(100%,16rem)}
+.pd-tablewrap{max-height:560px;overflow:auto;border-top:1px solid var(--color-border-line);margin-top:var(--cds-gap-xs);min-height:12rem}
+.pd table{width:100%;border-collapse:collapse;font-size:var(--cds-font-size-caption)}
+.pd th{position:sticky;top:0;background:var(--color-panel);text-align:right;font-weight:var(--cds-font-weight-medium);color:var(--color-fg-muted);border-bottom:1px solid var(--color-border-line);padding:0;z-index:1;white-space:nowrap}
+.pd th.l,.pd td.l{text-align:left}
+.pd th button{appearance:none;border:0;background:none;font:inherit;color:inherit;padding:8px 10px;cursor:pointer;width:100%;text-align:inherit}
+.pd th[aria-sort] button{color:var(--color-fg)}
+.pd th[aria-sort=ascending] button::after{content:" ↑"}
+.pd th[aria-sort=descending] button::after{content:" ↓"}
+.pd td{padding:7px 10px;text-align:right;border-bottom:1px solid color-mix(in srgb,var(--color-border-line) 60%,transparent);white-space:nowrap}
+.pd td.l{white-space:normal;min-width:10rem}
+.pd td.id{white-space:nowrap;min-width:0;color:var(--color-fg-muted)}
+.pd tbody tr{cursor:pointer}
+.pd tbody tr:hover td{background:color-mix(in srgb,var(--color-border-line) 30%,transparent)}
+.pd tbody tr.is-sel td{background:color-mix(in srgb,var(--pd-accent) 12%,transparent)}
+.pd td .cb{display:block;height:3px;border-radius:2px;background:var(--pd-accent);margin-top:3px;margin-left:auto;opacity:.85}
+.pd-trunc{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);padding-top:var(--cds-pad-xs)}
+@container (max-width:44rem){.pd .sec{display:none}}
+.pd-drill{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:var(--cds-gap-lg);min-height:10rem}
+.pd-drill>div{display:flex;flex-direction:column;gap:var(--cds-gap-xs);min-width:0}
+.pd-hint{display:flex;align-items:center;justify-content:center;text-align:center;min-height:8rem;font-size:var(--cds-font-size-body);color:var(--color-fg-muted);border:1px dashed var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg)}
+.pd-statusbig{display:flex;flex-direction:column;gap:var(--cds-gap-sm)}
+.pd-statusbig .pd-stack{height:14px}
+.pd-heatwrap{overflow-x:auto;min-height:16rem}
+.pd-heat{display:grid;gap:2px;font-size:var(--cds-font-size-caption);min-width:min-content}
+.pd-heat .hh{writing-mode:vertical-rl;transform:rotate(180deg);text-align:left;color:var(--color-fg-muted);padding:4px 0;max-height:9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;justify-self:center}
+.pd-heat .hh.is-sel{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.pd-heat .rl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 8px 0 4px;align-self:center;cursor:pointer;color:var(--color-fg)}
+.pd-heat .rl.is-sel{font-weight:var(--cds-font-weight-medium);box-shadow:inset 2px 0 0 var(--pd-accent)}
+.pd-heat .c{height:1.6rem;border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--color-fg);font-size:10.5px;cursor:pointer;min-width:2.4rem}
+.pd-heat .c.empty{background:transparent;color:var(--color-fg-muted);cursor:default;opacity:.5}
+.pd-heat .c.is-sel{outline:2px solid var(--color-fg);outline-offset:0}
+.pd-heat .c:not(.empty):hover{outline:2px solid var(--color-fg-muted)}
+.pd-villas{display:flex;flex-direction:column;gap:var(--cds-gap-sm);min-height:16rem}
+.pd-cl{display:grid;grid-template-columns:4.5rem 1fr;gap:var(--cds-gap-sm);align-items:start}
+.pd-cl .cn{font-size:var(--cds-font-size-caption);padding-top:6px}
+.pd .pd-cl .cn b{display:block;font-size:var(--cds-font-size-body);font-weight:var(--cds-font-weight-medium)}
+.pd-cl .cn span{color:var(--color-fg-muted)}
+.pd-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(2.6rem,1fr));gap:4px}
+.pd-tile{border-radius:6px;padding:5px 4px 4px;text-align:center;font-size:var(--cds-font-size-caption);line-height:1.2;border:1px solid color-mix(in srgb,var(--color-border-line) 80%,transparent);cursor:pointer}
+.pd-tile:hover{outline:2px solid var(--color-fg-muted);outline-offset:1px}
+.pd-tile.is-sel{outline:2px solid var(--color-fg);outline-offset:1px}
+.pd-tile small{display:block;opacity:.75;font-size:.85em}
+.pd-empty{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);padding:var(--cds-pad-md) 0}
+.pd-fail{display:flex;align-items:center;justify-content:center;gap:8px;min-height:inherit;height:100%;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);flex:1}
+.pd-fail::before{content:"";width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
+.pd-foot{margin-top:var(--cds-gap-lg);padding-top:var(--cds-pad-md);border-top:1px solid var(--color-border-line);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);line-height:1.6}
+.pd-foot dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:var(--cds-gap-xs) var(--cds-gap-lg);margin:0 0 var(--cds-gap-sm)}
+.pd-foot dt{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.pd-foot dd{margin:0}
+.pd-tip{position:absolute;pointer-events:none;background:var(--cds-surface-popover);border:1px solid var(--cds-border);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);padding:var(--cds-pad-xs) var(--cds-pad-sm);font-size:var(--cds-font-size-caption);z-index:20;max-width:19rem;display:none}
+.pd-tip .tt{color:var(--cds-text-secondary);margin-bottom:4px;white-space:normal}
+.pd-tip .ln{display:flex;align-items:center;gap:12px;justify-content:space-between;white-space:nowrap}
+.pd-tip .ln span:first-child{display:flex;align-items:center;gap:6px}
+.pd-tip .ln i{width:8px;height:8px;border-radius:2px;display:inline-block}
+.pd .pd-tip .ln b{font-weight:var(--cds-font-weight-medium)}
+.pd-tip .hint{margin-top:4px;color:var(--cds-text-secondary)}
+.pd-grid-2-1{grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr))}
+.pd-tab-present{color:var(--color-fg)}
+.pd-msgs{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:var(--cds-gap-sm) var(--cds-gap-lg);counter-reset:msg;min-height:6rem}
+.pd-msgs li{counter-increment:msg;display:grid;grid-template-columns:1.75rem 1fr;gap:var(--cds-gap-sm);font-size:var(--cds-font-size-body);line-height:1.5;align-items:start}
+.pd-msgs li::before{content:counter(msg);display:flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;border-radius:50%;background:color-mix(in srgb,var(--pd-accent) 14%,transparent);color:var(--color-fg);font-size:var(--cds-font-size-caption);font-weight:var(--cds-font-weight-medium)}
+.pd-msgs li.bad::before{background:color-mix(in srgb,var(--pd-bad) 18%,transparent)}
+.pd-stagebar{display:flex;flex-wrap:wrap;gap:var(--cds-gap-sm);align-items:center;justify-content:space-between;margin-bottom:var(--cds-gap-sm)}
+.pd-stagectl{display:flex;gap:var(--cds-gap-xs);align-items:center}
+.pd-btn{appearance:none;font:inherit;font-size:var(--cds-font-size-caption);background:var(--color-panel);color:var(--color-fg);border:1px solid var(--color-border-line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.pd-btn:hover{border-color:var(--color-fg-muted)}
+.pd-btn:disabled{opacity:.4;cursor:default}
+.pd-btn.primary{background:var(--pd-accent);color:var(--color-bg);border-color:var(--pd-accent)}
+.pd-count{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);min-width:3.5rem;text-align:center}
+.pd-stage{container-type:inline-size;width:100%;margin-inline:auto;outline:none}
+.pd-slide{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:clamp(1rem,4cqi,3.25rem);display:flex;flex-direction:column;gap:clamp(.6rem,1.8cqi,1.4rem);min-height:24rem;position:relative;overflow:hidden}
+@container (min-width:46rem){.pd-slide{aspect-ratio:16/9;min-height:0}}
+.pd-slide::before{content:"";position:absolute;left:0;top:0;bottom:0;width:clamp(4px,.5cqi,8px);background:var(--pd-accent)}
+.sl-eyebrow{font-size:clamp(.7rem,1.1cqi,.95rem);letter-spacing:.1em;text-transform:uppercase;color:var(--color-fg-muted)}
+.sl-title{font-family:var(--font-anthropic-serif);font-weight:400;font-size:clamp(1.3rem,3.2cqi,2.7rem);line-height:1.15;margin:0;letter-spacing:-.01em;max-width:58ch}
+.sl-title.hero{font-size:clamp(1.8rem,5.2cqi,4.4rem)}
+.sl-sub{font-size:clamp(.85rem,1.55cqi,1.3rem);color:var(--color-fg-muted);margin:0;line-height:1.45;max-width:80ch}
+.sl-body{flex:1;min-height:0;display:grid;gap:clamp(.75rem,2.5cqi,2.5rem);align-content:start}
+.sl-body.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr))}
+.sl-body.three{grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr))}
+.sl-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--cds-gap-sm);font-size:clamp(.65rem,1cqi,.85rem);color:var(--color-fg-muted);border-top:1px solid var(--color-border-line);padding-top:clamp(.4rem,1cqi,.8rem)}
+.sl-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:clamp(.75rem,2.5cqi,2.5rem);margin-top:auto}
+.sl-stat{display:flex;flex-direction:column;gap:.3em;border-top:2px solid var(--color-border-line);padding-top:.6em}
+.sl-stat .k{font-size:clamp(.7rem,1.15cqi,1rem);color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.06em}
+.sl-stat .v{font-family:var(--font-anthropic-serif);font-size:clamp(1.8rem,5cqi,4.2rem);line-height:1}
+.sl-stat .d{font-size:clamp(.72rem,1.2cqi,1.05rem);color:var(--color-fg-muted)}
+.pd .sl-stat .d b{font-weight:var(--cds-font-weight-medium);color:var(--color-fg)}
+.sl-msgs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(.5rem,1.6cqi,1.25rem);counter-reset:sm}
+.sl-msgs li{counter-increment:sm;display:grid;grid-template-columns:clamp(1.6rem,3cqi,2.6rem) 1fr;gap:clamp(.5rem,1.4cqi,1.1rem);font-size:clamp(.85rem,1.75cqi,1.45rem);line-height:1.4;align-items:start}
+.sl-msgs li::before{content:counter(sm);font-family:var(--font-anthropic-serif);font-size:1.25em;color:var(--pd-accent);line-height:1.1}
+.pd-slide .pd-row{font-size:clamp(.72rem,1.3cqi,1.05rem);padding:.28em 4px;grid-template-columns:minmax(6rem,34%) minmax(4rem,1fr) auto}
+.pd-slide .pd-track{height:clamp(10px,1.3cqi,18px)}
+.pd-slide .pd-track .bar.half1,.pd-slide .pd-track .bar.half2{height:45%}
+.pd-slide .pd-track .bar.half2{top:55%}
+.pd-slide .pd-legend{font-size:clamp(.7rem,1.15cqi,.95rem)}
+.pd-slide .pd-budget{height:clamp(2.25rem,6cqi,4.5rem);font-size:clamp(.75rem,1.4cqi,1.2rem)}
+.pd-slide .pd-budget div{font-size:inherit}
+.pd-slide .pd-bleg .v{font-size:clamp(1rem,2.4cqi,2rem)}
+.pd-slide .pd-bleg>div{font-size:clamp(.7rem,1.15cqi,.95rem)}
+.sl-area{display:flex;flex-direction:column;gap:.5em;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:clamp(.75rem,1.8cqi,1.5rem);font-size:clamp(.72rem,1.2cqi,1rem);color:var(--color-fg-muted)}
+.sl-area .nm{color:var(--color-fg);font-size:clamp(.9rem,1.6cqi,1.35rem);font-weight:var(--cds-font-weight-medium)}
+.sl-area .big{font-family:var(--font-anthropic-serif);color:var(--color-fg);font-size:clamp(1.8rem,4.4cqi,3.6rem);line-height:1}
+.pd .sl-area b{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.sl-col{display:flex;flex-direction:column;gap:.4em;min-width:0}
+.sl-col h3{margin:0 0 .2em;font-size:clamp(.72rem,1.15cqi,.95rem);color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.06em;font-weight:var(--cds-font-weight-medium)}
+.pd-slide table{font-size:clamp(.7rem,1.2cqi,1rem)}
+.pd-slide th{position:static;padding:.5em .6em;background:none}
+.pd-slide td{padding:.45em .6em}
+.pd-slide tbody tr{cursor:default}
+.pd-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:var(--cds-gap-sm)}
+.pd-dots button{appearance:none;border:0;padding:0;width:9px;height:9px;border-radius:50%;background:var(--color-border-line);cursor:pointer}
+.pd-dots button[aria-selected=true]{background:var(--pd-accent);width:22px;border-radius:999px}
+#present:fullscreen{background:var(--color-bg);padding:clamp(1rem,3vh,2.5rem);display:flex;flex-direction:column;justify-content:center;overflow:auto}
+#present:fullscreen .pd-stage{width:min(100%,calc((100vh - 7rem) * 16 / 9))}
+#present:fullscreen .pd-slide{aspect-ratio:16/9;min-height:0}
+.pd.is-presenting #kpis,.pd.is-presenting #chips{display:none !important}
+.pd-actsplit{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--cds-gap-md);margin-top:var(--cds-gap-xs)}
+.pd-actsplit .pd-detail{order:-1}
+.pd-actsplit:not(.has-detail) .pd-detail{display:none}
+@container (min-width:60rem){
+  .pd-actsplit{grid-template-columns:minmax(0,1fr) minmax(22rem,26rem)}
+  .pd-actsplit .pd-detail,.pd-actsplit:not(.has-detail) .pd-detail{order:0;display:flex;position:sticky;top:6.5rem;align-self:start}
+}
+@container (min-width:60rem) and (max-width:86rem){.pd-actsplit .sec{display:none}}
+.pd-detail{border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg);background:var(--color-bg);flex-direction:column;gap:var(--cds-gap-md);min-height:14rem;display:flex}
+.pd-detail .pd-hint{flex:1;font-size:var(--cds-font-size-caption)}
+.dt-top{display:flex;justify-content:space-between;align-items:center;gap:var(--cds-gap-sm)}
+.dt-id{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);letter-spacing:.04em}
+.dt-x{appearance:none;border:1px solid var(--color-border-line);background:none;color:var(--color-fg-muted);border-radius:999px;width:1.75rem;height:1.75rem;cursor:pointer;font:inherit;line-height:1}
+.dt-x:hover{color:var(--color-fg);border-color:var(--color-fg-muted)}
+.dt-name{margin:0;font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);line-height:1.2}
+.dt-crumbs{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.dt-crumbs button{appearance:none;border:0;background:color-mix(in srgb,var(--color-border-line) 45%,transparent);color:var(--color-fg);font:inherit;font-size:var(--cds-font-size-caption);border-radius:999px;padding:2px 9px;cursor:pointer}
+.dt-crumbs button:hover{background:color-mix(in srgb,var(--pd-accent) 18%,transparent)}
+.dt-badges{display:flex;flex-wrap:wrap;gap:6px}
+.dt-badge{font-size:var(--cds-font-size-caption);border-radius:999px;padding:2px 10px;border:1px solid var(--color-border-line);color:var(--color-fg)}
+.dt-badge.done{border-color:var(--color-ok);color:var(--color-ok)}
+.dt-badge.bad{border-color:var(--color-bad);color:var(--color-bad)}
+.dt-prog{display:flex;flex-direction:column;gap:8px;padding:var(--cds-pad-md);border-radius:var(--cds-radius);background:var(--color-panel);border:1px solid var(--color-border-line)}
+.dt-big{display:flex;align-items:baseline;gap:8px}
+.dt-big .v{font-family:var(--font-anthropic-serif);font-size:calc(var(--cds-font-size-title)*1.5);line-height:1}
+.dt-big .k{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.dt-line{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.pd .dt-line b,.pd .dt-grid b{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.pd .dt-line b.is-bad,.pd .dt-grid b.is-bad{color:var(--color-bad)}
+.pd .dt-line b.is-ok,.pd .dt-grid b.is-ok{color:var(--color-ok)}
+.dt-sec{display:flex;flex-direction:column;gap:6px}
+.dt-sec h4{margin:0;font-size:var(--cds-font-size-caption);text-transform:uppercase;letter-spacing:.06em;color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium)}
+.dt-grid{display:grid;grid-template-columns:1fr auto;gap:5px 12px;margin:0;font-size:var(--cds-font-size-caption)}
+.dt-grid dt{color:var(--color-fg-muted)}
+.dt-grid dd{margin:0;text-align:right}
+.dt-grid .sep{grid-column:1/-1;height:1px;background:var(--color-border-line);margin:2px 0}
+.dt-sib .pd-row{grid-template-columns:minmax(0,1fr) 4.5rem auto}
+.dt-sib .pd-track{height:8px}
+#act-table tbody tr.is-sel td:first-child{box-shadow:inset 3px 0 0 var(--pd-accent)}
+.pd [data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
+.pd [data-dash-source-state=empty]{color:transparent}
+@media (prefers-reduced-motion:no-preference){
+  .pd.drawn .pd-meter .fill,.pd.drawn .pd-track .bar,.pd.drawn .pd-budget div,.pd.drawn .pd-stack span{transition:width var(--cds-dur-slow) var(--cds-ease-out),left var(--cds-dur-slow) var(--cds-ease-out)}
+  .pd-anim{animation:pd-in var(--cds-dur-slow) var(--cds-ease-out) both}
+  @keyframes pd-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+}
+
+.pd h1,.pd-kpi-value,.sl-title,.sl-stat .v,.pd-area .big,.dt-big .v,.dt-name,.pd-bleg .v,.sl-area .big,.pd-card h2{font-weight:700;font-stretch:86%}
+.pd-card h2{font-family:var(--font-anthropic-serif);font-size:17px;letter-spacing:.005em}
+.pd-kpi-value{font-weight:700}
+.pd td.id,.dt-id,.xcard .n{font-family:var(--font-mono)}
+.pd-detail{top:9.5rem}
+@container (min-width:60rem){.pd-actsplit .pd-detail,.pd-actsplit:not(.has-detail) .pd-detail{top:9.5rem}}
+.pd-msgs li::before{font-family:var(--font-mono)}
+</style>
+</head>
+<body>
+
+
+<div class="pd" data-tab="home">
+  <header class="site-head" id="filters">
+    <div class="wrap">
+      <div class="site-bar">
+        <button class="brand" data-goto="home" aria-label="Home"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 27 C 12 26, 15 20, 18 14 S 24 7, 28 6" fill="none" stroke="var(--ochre)" stroke-width="2.4" stroke-linecap="round"/><path d="M6 27 C 13 26.5, 16 22, 19 18 S 24 13, 28 12" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/></svg><span class="bt"><b>SBARC</b><span>Project progress · earned value</span></span></button>
+        <button class="theme-btn" id="theme-btn" aria-label="Switch light or dark theme">Theme</button>
+        <nav class="site-nav pd-tabs" role="tablist" aria-label="Sections">
+          <button class="pd-tab" role="tab" data-tab="home" aria-selected="true">Home</button>
+          <button class="pd-tab" role="tab" data-tab="overview" aria-selected="false">Overview</button>
+          <button class="pd-tab" role="tab" data-tab="packages" aria-selected="false">Work packages</button>
+          <button class="pd-tab" role="tab" data-tab="facilities" aria-selected="false">Buildings &amp; villas</button>
+          <button class="pd-tab" role="tab" data-tab="activities" aria-selected="false">Activities</button>
+          <button class="pd-tab pd-tab-present" role="tab" data-tab="present" aria-selected="false">▶ Present</button>
+          <button class="pd-tab" role="tab" data-tab="about" aria-selected="false">About the data</button>
+        </nav>
+      </div>
+      <div class="site-filters">
+        <span class="lab">Area</span>
+        <div class="pd-seg" role="group" aria-label="Area" id="seg-ctl">
+          <button data-seg="All" aria-pressed="true">All areas</button>
+          <button data-seg="Buildings" aria-pressed="false">Buildings</button>
+          <button data-seg="Villas" aria-pressed="false">Villas</button>
+          <button data-seg="Site-wide" aria-pressed="false">Site-wide</button>
+        </div>
+        <span class="lab">Measure</span>
+        <div class="pd-seg" role="group" aria-label="Measure" id="basis-ctl">
+          <button data-basis="cost" aria-pressed="true">Cost</button>
+          <button data-basis="mh" aria-pressed="false">Man-hours</button>
+        </div>
+        <div class="pd-chips" id="chips" hidden></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+  <section class="hero" id="hero">
+    <div>
+      <div class="eyebrow">SBARC · weekly earned value report</div>
+      <h1>SBARC progress &amp; <em>earned value</em></h1>
+      <p class="pd-take" id="takeaway">
+        <b class="scope" id="scope-label">All areas</b> —
+        earned <b class="scope-mark" data-base="actual_pct" data-fmt="pct" data-source="scope_kpis" data-field="actual_pct" data-where="segment=All&amp;package=All&amp;facility=All">—</b> of <span class="basis-word">budget</span> against <b class="scope-mark" data-base="planned_pct" data-fmt="pct" data-source="scope_kpis" data-field="planned_pct" data-where="segment=All&amp;package=All&amp;facility=All">—</b> planned,
+        a schedule variance of <b class="scope-mark" data-base="sv" data-fmt="signed" data-source="scope_kpis" data-field="sv" data-where="segment=All&amp;package=All&amp;facility=All">—</b> (SPI <b class="scope-mark" data-base="spi" data-fmt="spi" data-source="scope_kpis" data-field="spi" data-where="segment=All&amp;package=All&amp;facility=All">—</b>). This week <b class="scope-mark" data-base="ev_week" data-fmt="amt" data-source="scope_kpis" data-field="ev_week" data-where="segment=All&amp;package=All&amp;facility=All">—</b> was earned of <b class="scope-mark" data-base="pv_week" data-fmt="amt" data-source="scope_kpis" data-field="pv_week" data-where="segment=All&amp;package=All&amp;facility=All">—</b> planned.
+      </p>
+      <div class="hero-cta"><button class="cta" data-goto="overview">Open the dashboard</button><button class="cta ghost" data-goto="present">▶ Start presentation</button></div>
+    </div>
+    <div class="tblock" aria-label="Report summary">
+      <div class="full"><span class="k">Project · report</span><span class="v">SBARC · earned value, cost &amp; man-hours</span></div>
+      <div><span class="k">Budget at completion</span><span class="v big" id="tb-bac">—</span></div>
+      <div><span class="k">Budgeted man-hours</span><span class="v big" id="tb-mh">—</span></div>
+      <div><span class="k">Work packages</span><span class="v big" id="tb-pk">—</span></div>
+      <div><span class="k">Activities</span><span class="v big" id="tb-act">—</span></div>
+      <div><span class="k">Buildings</span><span class="v big" id="tb-bld">—</span></div>
+      <div><span class="k">Villas</span><span class="v big" id="tb-vil">—</span></div>
+      <div class="full"><span class="k">Data date</span><span class="v">Current reporting week · source ahmed_sayed_sheet.xlsx</span></div>
+    </div>
+  </section>
+  <section class="pd-kpis" id="kpis">
+    <div class="pd-kpi" id="kpi-progress">
+      <div class="pd-kpi-label">Earned progress</div>
+      <div class="pd-kpi-value"><span class="scope-mark" data-base="actual_pct" data-fmt="pct" data-source="scope_kpis" data-field="actual_pct" data-where="segment=All&amp;package=All&amp;facility=All">—</span></div>
+      <div class="pd-kpi-sub">Planned <b class="scope-mark" data-base="planned_pct" data-fmt="pct" data-source="scope_kpis" data-field="planned_pct" data-where="segment=All&amp;package=All&amp;facility=All">—</b> · last week <b class="scope-mark" data-base="prev_actual_pct" data-fmt="pct" data-source="scope_kpis" data-field="prev_actual_pct" data-where="segment=All&amp;package=All&amp;facility=All">—</b> earned</div>
+      <div class="pd-meter" id="meter-main" data-source="scope_kpis"><div class="fill"></div><div class="tick"></div></div>
+    </div>
+    <div class="pd-kpi" id="kpi-ev">
+      <div class="pd-kpi-label" data-cost="Earned value" data-mh="Earned man-hours">Earned value</div>
+      <div class="pd-kpi-value"><span class="scope-mark" data-base="ev" data-fmt="amt" data-source="scope_kpis" data-field="ev" data-where="segment=All&amp;package=All&amp;facility=All">—</span></div>
+      <div class="pd-kpi-sub">of <b class="scope-mark" data-base="bac" data-fmt="amt" data-source="scope_kpis" data-field="bac" data-where="segment=All&amp;package=All&amp;facility=All">—</b> · <b class="scope-mark" data-base="remaining" data-fmt="amt" data-source="scope_kpis" data-field="remaining" data-where="segment=All&amp;package=All&amp;facility=All">—</b> left</div>
+    </div>
+    <div class="pd-kpi" id="kpi-sv">
+      <div class="pd-kpi-label">Schedule variance</div>
+      <div class="pd-kpi-value"><span class="scope-mark tone-sv" data-base="sv" data-fmt="signed" data-source="scope_kpis" data-field="sv" data-where="segment=All&amp;package=All&amp;facility=All">—</span></div>
+      <div class="pd-kpi-sub">SPI <b class="scope-mark tone-spi" data-base="spi" data-fmt="spi" data-source="scope_kpis" data-field="spi" data-where="segment=All&amp;package=All&amp;facility=All">—</b> (last week <b class="scope-mark" data-base="prev_spi" data-fmt="spi" data-source="scope_kpis" data-field="prev_spi" data-where="segment=All&amp;package=All&amp;facility=All">—</b>) · <b class="scope-mark tone-delta" data-base="sv_change" data-fmt="signed" data-source="scope_kpis" data-field="sv_change" data-where="segment=All&amp;package=All&amp;facility=All">—</b> this week</div>
+    </div>
+    <div class="pd-kpi" id="kpi-week">
+      <div class="pd-kpi-label">This week earned</div>
+      <div class="pd-kpi-value"><span class="scope-mark" data-base="ev_week" data-fmt="amt" data-source="scope_kpis" data-field="ev_week" data-where="segment=All&amp;package=All&amp;facility=All">—</span></div>
+      <div class="pd-kpi-sub">of <b class="scope-mark" data-base="pv_week" data-fmt="amt" data-source="scope_kpis" data-field="pv_week" data-where="segment=All&amp;package=All&amp;facility=All">—</b> planned · SPI <b class="scope-mark tone-spi" data-base="week_spi" data-fmt="spi" data-source="scope_kpis" data-field="week_spi" data-where="segment=All&amp;package=All&amp;facility=All">—</b></div>
+    </div>
+    <div class="pd-kpi" id="kpi-acts">
+      <div class="pd-kpi-label">Activities complete</div>
+      <div class="pd-kpi-value"><span class="scope-mark" data-base="done_pct" data-fmt="pct" data-source="scope_kpis" data-field="done_pct" data-where="segment=All&amp;package=All&amp;facility=All">—</span></div>
+      <div class="pd-kpi-sub"><b class="scope-mark" data-base="n_done" data-fmt="int" data-source="scope_kpis" data-field="n_done" data-where="segment=All&amp;package=All&amp;facility=All">—</b> of <b class="scope-mark" data-base="n_act" data-fmt="int" data-source="scope_kpis" data-field="n_act" data-where="segment=All&amp;package=All&amp;facility=All">—</b> · <b class="scope-mark is-bad" data-base="n_behind" data-fmt="int" data-source="scope_kpis" data-field="n_behind" data-where="segment=All&amp;package=All&amp;facility=All">—</b> behind plan</div>
+      <div class="pd-stack" id="kpi-stack" data-source="scope_kpis"></div>
+    </div>
+  </section>
+
+  <!-- HOME -->
+  <section class="pd-page" id="home">
+    <div class="pd-grid">
+      <div class="pd-card wide" id="messages-card">
+        <div class="pd-tools"><h2>Key messages</h2><span class="pd-note">Written from this week's numbers for the selected area and measure</span></div>
+        <ol class="pd-msgs dash-skeleton" id="messages" data-source="headlines"></ol>
+      </div>
+    </div>
+    <div class="sec-h"><h2>Explore the report</h2><span class="pd-note">Every section follows the area and measure switches at the top.</span></div>
+    <div class="explore">
+      <button class="xcard" data-goto="overview"><span class="n">01 · Overview</span><b>Where the project stands</b><span>Budget split, budget map, planned vs earned, biggest variances and this week's progress.</span><span class="go">Open overview →</span></button>
+      <button class="xcard" data-goto="packages"><span class="n">02 · Work packages</span><b>Package drill-down</b><span>Pick a package to see it by area, by facility and by activity status, plus the full sortable table.</span><span class="go">Open work packages →</span></button>
+      <button class="xcard" data-goto="facilities"><span class="n">03 · Buildings &amp; villas</span><b>Every building and villa</b><span>Ranking by gap to plan, heatmaps of package by building and by villa cluster, and the villa grid.</span><span class="go">Open buildings &amp; villas →</span></button>
+      <button class="xcard" data-goto="activities"><span class="n">04 · Activities</span><b>Activity details</b><span>All activities with search and sorting. Click one for its schedule, cost and man-hour detail.</span><span class="go">Open activities →</span></button>
+      <button class="xcard" data-goto="present"><span class="n">05 · Present</span><b>Weekly review deck</b><span>Slides with headline titles written from the numbers, ready to show full screen in a meeting.</span><span class="go">Start presentation →</span></button>
+      <button class="xcard" data-goto="about"><span class="n">06 · About</span><b>How the numbers work</b><span>Definitions of progress, variance and SPI, what each area covers, and where the data comes from.</span><span class="go">Read about the data →</span></button>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="pd-page" id="overview" hidden>
+    <div class="page-h"><h2>Overview</h2><p>Budget status, the budget map, planned vs earned, variances and this week. Click any package to filter every chart.</p></div>
+    <div class="pd-grid pd-grid-2-1">
+      <div class="pd-card" id="budget-card">
+        <h2>Where the budget stands</h2>
+        <p class="pd-note">The whole <span class="basis-word">budget</span> for the current selection, split into what's earned, what was due but isn't earned yet, and what isn't due yet.</p>
+        <div class="pd-budget" id="budget-bar" data-source="scope_kpis"></div>
+        <div class="pd-bleg">
+          <div><span><i style="background:var(--pd-accent)"></i>Earned to plan</span><span class="v scope-mark" data-base="earned_on_plan" data-fmt="amt" data-source="scope_kpis" data-field="earned_on_plan" data-where="segment=All&amp;package=All&amp;facility=All">—</span></div>
+          <div><span><i style="background:color-mix(in srgb,var(--pd-accent) 55%,var(--color-panel))"></i>Earned ahead of plan</span><span class="v scope-mark" data-base="ahead" data-fmt="amt" data-source="scope_kpis" data-field="ahead" data-where="segment=All&amp;package=All&amp;facility=All">—</span></div>
+          <div><span><i style="background:var(--pd-bad)"></i>Due, not yet earned</span><span class="v scope-mark is-bad" data-base="behind" data-fmt="amt" data-source="scope_kpis" data-field="behind" data-where="segment=All&amp;package=All&amp;facility=All">—</span></div>
+          <div><span><i style="background:var(--pd-trackbg)"></i>Not yet due</span><span class="v scope-mark" data-base="future" data-fmt="amt" data-source="scope_kpis" data-field="future" data-where="segment=All&amp;package=All&amp;facility=All">—</span></div>
+        </div>
+      </div>
+      <div class="pd-card" id="trend-card">
+        <h2>Last week → this week</h2>
+        <p class="pd-note">Cumulative planned and earned %, from the export's previous-week columns. The scale is zoomed to the values shown.</p>
+        <div class="pd-chart dash-skeleton" id="trend" data-source="scope_kpis" style="min-height:12rem"></div>
+      </div>
+    </div>
+    <div class="pd-grid">
+      <div class="pd-card wide" id="treemap-card">
+        <div class="pd-tools"><h2>Budget map by work package</h2><div class="pd-legend"><span>Behind</span><span class="ramp"></span><span>Ahead</span></div></div>
+        <p class="pd-note">Box size is the package's <span class="basis-word">budget</span>; colour is how far earned progress sits from plan. Click a box to filter the whole dashboard to that package.</p>
+        <div class="pd-chart dash-skeleton" id="treemap" data-source="scope_kpis"></div>
+      </div>
+    </div>
+    <div class="pd-grid">
+      <div class="pd-card" id="scatter-card">
+        <h2>Planned vs earned</h2>
+        <p class="pd-note">Each bubble is a work package, sized by <span class="basis-word">budget</span>. Below the dashed line is behind plan. Click to select.</p>
+        <div class="pd-chart dash-skeleton" id="scatter" data-source="scope_kpis"></div>
+      </div>
+      <div class="pd-card" id="variance-card">
+        <h2>Biggest schedule variances</h2>
+        <p class="pd-note">Earned − planned to date. Left of centre is behind plan, right is ahead. Click a row to select.</p>
+        <div class="pd-legend"><span><i style="background:var(--pd-bad)"></i>Behind</span><span><i style="background:var(--pd-accent)"></i>Ahead</span></div>
+        <div class="pd-rows dash-skeleton" id="variance" data-source="scope_kpis"></div>
+      </div>
+    </div>
+    <div class="pd-grid">
+      <div class="pd-card" id="week-card">
+        <h2>This week: planned vs earned</h2>
+        <p class="pd-note">Packages with the most planned this reporting week.</p>
+        <div class="pd-legend"><span><i style="background:var(--pd-muted)"></i>Planned</span><span><i style="background:var(--pd-accent)"></i>Earned</span></div>
+        <div class="pd-rows dash-skeleton" id="week-chart" data-source="scope_kpis"></div>
+      </div>
+      <div class="pd-card" id="areas-card">
+        <h2>Progress by area</h2>
+        <p class="pd-note">Earned vs planned share of each area's <span class="basis-word">budget</span>, for the selected package. Click an area to focus on it.</p>
+        <div class="pd-legend"><span><i style="background:var(--pd-accent)"></i>Earned</span><span><i class="tk"></i>Planned</span></div>
+        <div class="pd-areas" id="areas">
+          <div class="pd-area" data-area="Buildings" role="button" tabindex="0" aria-pressed="false">
+            <div class="nm">Buildings</div><div class="big"><span class="area-mark" data-area="Buildings" data-base="actual_pct" data-fmt="pct" data-source="scope_kpis" data-field="actual_pct" data-where="segment=Buildings&amp;package=All&amp;facility=All">—</span></div>
+            <div class="pd-meter" data-source="scope_kpis"><div class="fill"></div><div class="tick"></div></div>
+            <div class="meta"><span>Planned <b class="area-mark" data-area="Buildings" data-base="planned_pct" data-fmt="pct" data-source="scope_kpis" data-field="planned_pct" data-where="segment=Buildings&amp;package=All&amp;facility=All">—</b></span><span>Budget <b class="area-mark" data-area="Buildings" data-base="bac" data-fmt="amt" data-source="scope_kpis" data-field="bac" data-where="segment=Buildings&amp;package=All&amp;facility=All">—</b></span><span>Variance <b class="area-mark tone-sv" data-area="Buildings" data-base="sv" data-fmt="signed" data-source="scope_kpis" data-field="sv" data-where="segment=Buildings&amp;package=All&amp;facility=All">—</b></span><span>SPI <b class="area-mark" data-area="Buildings" data-base="spi" data-fmt="spi" data-source="scope_kpis" data-field="spi" data-where="segment=Buildings&amp;package=All&amp;facility=All">—</b></span></div>
+          </div>
+          <div class="pd-area" data-area="Villas" role="button" tabindex="0" aria-pressed="false">
+            <div class="nm">Villas</div><div class="big"><span class="area-mark" data-area="Villas" data-base="actual_pct" data-fmt="pct" data-source="scope_kpis" data-field="actual_pct" data-where="segment=Villas&amp;package=All&amp;facility=All">—</span></div>
+            <div class="pd-meter" data-source="scope_kpis"><div class="fill"></div><div class="tick"></div></div>
+            <div class="meta"><span>Planned <b class="area-mark" data-area="Villas" data-base="planned_pct" data-fmt="pct" data-source="scope_kpis" data-field="planned_pct" data-where="segment=Villas&amp;package=All&amp;facility=All">—</b></span><span>Budget <b class="area-mark" data-area="Villas" data-base="bac" data-fmt="amt" data-source="scope_kpis" data-field="bac" data-where="segment=Villas&amp;package=All&amp;facility=All">—</b></span><span>Variance <b class="area-mark tone-sv" data-area="Villas" data-base="sv" data-fmt="signed" data-source="scope_kpis" data-field="sv" data-where="segment=Villas&amp;package=All&amp;facility=All">—</b></span><span>SPI <b class="area-mark" data-area="Villas" data-base="spi" data-fmt="spi" data-source="scope_kpis" data-field="spi" data-where="segment=Villas&amp;package=All&amp;facility=All">—</b></span></div>
+          </div>
+          <div class="pd-area" data-area="Site-wide" role="button" tabindex="0" aria-pressed="false">
+            <div class="nm">Site-wide</div><div class="big"><span class="area-mark" data-area="Site-wide" data-base="actual_pct" data-fmt="pct" data-source="scope_kpis" data-field="actual_pct" data-where="segment=Site-wide&amp;package=All&amp;facility=All">—</span></div>
+            <div class="pd-meter" data-source="scope_kpis"><div class="fill"></div><div class="tick"></div></div>
+            <div class="meta"><span>Planned <b class="area-mark" data-area="Site-wide" data-base="planned_pct" data-fmt="pct" data-source="scope_kpis" data-field="planned_pct" data-where="segment=Site-wide&amp;package=All&amp;facility=All">—</b></span><span>Budget <b class="area-mark" data-area="Site-wide" data-base="bac" data-fmt="amt" data-source="scope_kpis" data-field="bac" data-where="segment=Site-wide&amp;package=All&amp;facility=All">—</b></span><span>Variance <b class="area-mark tone-sv" data-area="Site-wide" data-base="sv" data-fmt="signed" data-source="scope_kpis" data-field="sv" data-where="segment=Site-wide&amp;package=All&amp;facility=All">—</b></span><span>SPI <b class="area-mark" data-area="Site-wide" data-base="spi" data-fmt="spi" data-source="scope_kpis" data-field="spi" data-where="segment=Site-wide&amp;package=All&amp;facility=All">—</b></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK PACKAGES -->
+  <section class="pd-page" id="packages" hidden>
+    <div class="page-h"><h2>Work packages</h2><p>Drill into a package, compare planned and earned for every package, and sort the full table.</p></div>
+    <div class="pd-grid">
+      <div class="pd-card wide" id="drill-card">
+        <h2 id="drill-title">Package drill-down</h2>
+        <p class="pd-note" id="drill-note">Select a package from any chart or the table below to see where it's behind.</p>
+        <div class="pd-drill" id="drill" data-source="scope_kpis"></div>
+      </div>
+      <div class="pd-card wide" id="dumbbell-card">
+        <h2>Planned vs earned, by work package</h2>
+        <p class="pd-note">Each line runs from planned % to earned % of the package <span class="basis-word">budget</span>; red is behind plan. Sorted by variance, largest gap first. Click to select.</p>
+        <div class="pd-legend"><span><i class="ring"></i>Planned</span><span><i class="dot" style="background:var(--pd-accent)"></i>Earned</span><span><i style="background:var(--pd-bad);height:3px"></i>Behind plan</span></div>
+        <div class="dash-skeleton" id="dumbbell" data-source="scope_kpis" style="min-height:16rem"></div>
+        <button class="pd-more" id="dumbbell-more" hidden>Show all</button>
+      </div>
+      <div class="pd-card wide" id="pkg-table-card">
+        <div class="pd-tools"><h2>All work packages</h2><input class="pd-search" id="pkg-search" type="search" placeholder="Search packages" aria-label="Search packages"></div>
+        <p class="pd-note">For the selected area and facility. Click a header to sort, a row to select the package.</p>
+        <div class="pd-tablewrap">
+          <table id="pkg-table" data-source="scope_kpis" data-row-key="segment,package,facility">
+            <thead><tr>
+              <th class="l" data-field="package" data-k="package"><button>Work package</button></th>
+              <th data-field="bac" data-base="bac" data-k="bac"><button>Budget</button></th>
+              <th data-field="planned_pct" data-base="planned_pct" data-k="planned_pct"><button>Planned</button></th>
+              <th data-field="actual_pct" data-base="actual_pct" data-k="actual_pct"><button>Earned</button></th>
+              <th data-field="sv" data-base="sv" data-k="sv"><button>Variance</button></th>
+              <th data-field="spi" data-base="spi" data-k="spi"><button>SPI</button></th>
+              <th class="sec" data-field="pv_week" data-base="pv_week" data-k="pv_week"><button>Week planned</button></th>
+              <th class="sec" data-field="ev_week" data-base="ev_week" data-k="ev_week"><button>Week earned</button></th>
+              <th class="sec" data-field="n_act" data-k="n_act"><button>Activities</button></th>
+              <th class="sec" data-field="n_behind" data-k="n_behind"><button>Behind</button></th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACILITIES -->
+  <section class="pd-page" id="facilities" hidden>
+    <div class="page-h"><h2>Buildings &amp; villas</h2><p>Each building and villa, and the package-by-facility heatmaps. Click a building, villa or cell to filter.</p></div>
+    <p class="pd-empty" id="fac-note" hidden>Site-wide works aren't split by building or villa. Choose All areas, Buildings or Villas to see facilities.</p>
+    <div class="pd-grid">
+      <div class="pd-card wide" id="buildings-card">
+        <h2>Buildings</h2>
+        <p class="pd-note">Each building for the selected package (or all packages). Bar is earned %, tick is planned %; sorted by gap to plan. Click to filter to a building.</p>
+        <div class="pd-legend"><span><i style="background:var(--pd-accent)"></i>Earned</span><span><i class="tk"></i>Planned</span></div>
+        <div class="pd-rows dash-skeleton" id="buildings" data-source="scope_kpis" style="min-height:16rem"></div>
+      </div>
+      <div class="pd-card wide" id="bheat-card">
+        <div class="pd-tools"><h2>Buildings × work packages</h2><div class="pd-legend"><span>Behind</span><span class="ramp"></span><span>Ahead</span></div></div>
+        <p class="pd-note">Earned % in each cell, coloured by gap to plan, in WBS order. Click a cell for that package in that building, a row for the package, a column for the building.</p>
+        <div class="pd-heatwrap dash-skeleton" id="bheat" data-source="scope_kpis"></div>
+      </div>
+      <div class="pd-card wide" id="villas-card">
+        <div class="pd-tools"><h2>Villas</h2><div class="pd-legend"><span>Smallest gap</span><span class="ramp" style="background:linear-gradient(90deg,var(--color-panel),color-mix(in srgb,var(--pd-bad) 62%,var(--color-panel)))"></span><span id="villa-ramp-max" data-source="scope_kpis">—</span></div></div>
+        <p class="pd-note">Every villa by cluster, showing earned %. Deeper red is further behind plan. Click a villa to filter to it.</p>
+        <div class="pd-villas dash-skeleton" id="villas" data-source="scope_kpis cluster_kpis"></div>
+      </div>
+      <div class="pd-card wide" id="vheat-card">
+        <div class="pd-tools"><h2>Villa clusters × work packages</h2><div class="pd-legend"><span>Behind</span><span class="ramp"></span><span>Ahead</span></div></div>
+        <p class="pd-note">Earned % per cluster and package, coloured by gap to plan. Click a row or cell to select the package.</p>
+        <div class="pd-heatwrap dash-skeleton" id="vheat" data-source="cluster_kpis"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section class="pd-page" id="activities" hidden>
+    <div class="page-h"><h2>Activities</h2><p>Activity status by package and every activity in the current selection. Click an activity for its full details.</p></div>
+    <div class="pd-grid">
+      <div class="pd-card wide" id="status-card">
+        <h2>Activity status by work package</h2>
+        <p class="pd-note">Share of activities complete, in progress and not started, for packages with the most activities behind plan. Click to select.</p>
+        <div class="pd-legend"><span><i id="sw-done"></i>Complete</span><span><i id="sw-wip"></i>In progress</span><span><i style="background:var(--pd-trackbg)"></i>Not started</span></div>
+        <div class="pd-rows dash-skeleton" id="status-chart" data-source="scope_kpis"></div>
+      </div>
+      <div class="pd-card wide" id="act-card">
+        <div class="pd-tools"><h2>Activities</h2>
+          <div class="pd-ctrls" style="margin:0">
+            <div class="pd-seg" role="group" aria-label="Which activities" id="act-mode">
+              <button data-mode="behind" aria-pressed="true">Behind plan</button>
+              <button data-mode="all" aria-pressed="false">All activities</button>
+            </div>
+            <input class="pd-search" id="act-search" type="search" placeholder="Search ID, activity, package, facility" aria-label="Search activities">
+          </div>
+        </div>
+        <p class="pd-note">Activities in the current selection. Gap = planned − earned <span class="basis-word">budget</span>. <b>Click any activity to open its full details.</b></p>
+        <div class="pd-actsplit" id="act-split">
+          <div class="pd-actlist">
+            <div class="pd-tablewrap">
+              <table id="act-table" data-source="activities" data-row-key="activity_id">
+                <thead><tr>
+                  <th class="l" data-field="activity_id" data-k="activity_id"><button>ID</button></th>
+                  <th class="l" data-field="activity" data-k="activity"><button>Activity</button></th>
+                  <th class="l sec" data-field="package" data-k="package"><button>Work package</button></th>
+                  <th class="l sec" data-field="facility" data-k="facility"><button>Facility</button></th>
+                  <th class="sec" data-field="bac" data-base="bac" data-k="bac" id="act-bac-th"><button>Budget</button></th>
+                  <th data-field="sched_pct" data-k="sched_pct"><button>Planned</button></th>
+                  <th data-field="perf_pct" data-k="perf_pct"><button>Earned</button></th>
+                  <th data-source="activity_metrics" data-field="gap" data-k="gap" id="act-gap-th"><button>Gap</button></th>
+                </tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="pd-trunc" id="act-trunc" hidden>Showing the first rows by the current sort — search or filter to narrow the list.</div>
+          </div>
+          <aside class="pd-detail" id="act-detail" data-source="activities activity_metrics" aria-live="polite"></aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESENT -->
+  <section class="pd-page" id="present" hidden>
+    <div class="page-h"><h2>Present</h2><p>A slide deck written from this week's numbers. Use the arrow keys or space bar to move between slides.</p></div>
+    <div class="pd-stagebar">
+      <p class="pd-note">Slides follow the area and measure switches above.</p>
+      <div class="pd-stagectl">
+        <button class="pd-btn" id="sl-prev" aria-label="Previous slide">‹ Prev</button>
+        <span class="pd-count" id="sl-count"></span>
+        <button class="pd-btn" id="sl-next" aria-label="Next slide">Next ›</button>
+        <button class="pd-btn primary" id="sl-full" hidden>Full screen</button>
+      </div>
+    </div>
+    <div class="pd-stage" id="stage" tabindex="0">
+      <div class="pd-slide" id="slide" data-source="scope_kpis headlines cluster_kpis activities activity_metrics"></div>
+    </div>
+    <div class="pd-dots" id="sl-dots" role="tablist" aria-label="Slides"></div>
+  </section>
+
+
+  <!-- ABOUT -->
+  <section class="pd-page" id="about" hidden>
+    <div class="page-h"><h2>About the data</h2><p>What the figures mean and where they come from.</p></div>
+    <div class="about">
+      <div class="pd-card">
+        <h2>Definitions</h2>
+        <dl>
+          <dt>Budget (BAC)</dt><dd>Budgeted total cost, or budgeted labour units for man-hours.</dd>
+          <dt>Planned value</dt><dd>The share of budget scheduled to be done by the data date.</dd>
+          <dt>Earned value</dt><dd>The share of budget actually done, from performance % complete.</dd>
+          <dt>Progress</dt><dd>Planned or earned value ÷ budget, weighted by cost or by man-hours.</dd>
+          <dt>Schedule variance</dt><dd>Earned − planned value. Negative means behind plan.</dd>
+          <dt>SPI</dt><dd>Earned ÷ planned value. Below 1.00 is behind plan; 0.98 and above shows green, below 0.90 red.</dd>
+          <dt>This week</dt><dd>The change since the previous week's cumulative values in the export.</dd>
+          <dt>Activity status</dt><dd>Complete at 100% performance; behind plan when schedule % complete exceeds performance % complete.</dd>
+        </dl>
+      </div>
+      <div class="pd-card">
+        <h2>Areas and structure</h2>
+        <ul>
+          <li><b>Buildings</b>: the 13 community buildings, from the Admin Building to the Utility Building.</li>
+          <li><b>Villas</b>: 104 villas in clusters R1 to R6, plus XV and XY.</li>
+          <li><b>Site-wide</b>: the export's “No VILLA NO.” group, covering infrastructure, roads and networks, general requirements, testing, approvals and close-out.</li>
+          <li>Work packages follow the WBS order of the schedule, from Substructure through to Handing Over.</li>
+        </ul>
+      </div>
+      <div class="pd-card">
+        <h2>Source</h2>
+        <p>All figures come from <b>ahmed_sayed_sheet.xlsx</b>, an earned-value export of the SBARC project schedule with 23,610 activities. Totals are summed from the activity rows. Cost matches the export's totals; man-hour totals can differ from its rounded summary rows by under 0.1%.</p>
+        <p>Amounts are in the export's currency. The export does not state a data date, so the site refers to the current reporting week.</p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+  <footer class="site-foot"><div class="wrap"><span>SBARC · Project Progress &amp; Earned Value · current reporting week</span><span>Source: ahmed_sayed_sheet.xlsx · amounts in the export's currency</span></div></footer>
+  <div class="pd-tip" id="pd-tip"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="shim.js"></script>
+<script src="calcs.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
